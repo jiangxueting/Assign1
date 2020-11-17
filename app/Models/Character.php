@@ -38,9 +38,9 @@ class Character {
         '3' => [
             'id' => 3,
             'name' => 'Spike',
-            'description' => 'A fierce bulldog, whether Tom makes fun of him, catches Jerry by accident, or jerry frames him up, Tom always gets beaten up by him..',
+            'description' => 'A fierce bulldog, whether Tom makes fun of him, catches Jerry by accident, or jerry frames him up, Tom always gets beaten up by him.',
             'image' => 'Spike.jpg',
-             'favorite' => 'Bone',
+            'favorite' => 'Bone',
             'varireties' => 'Bulldog',
             'country' => 'USA',
             'character' => 'Guard dog',
