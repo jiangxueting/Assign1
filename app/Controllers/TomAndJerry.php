@@ -15,14 +15,13 @@ class TomAndJerry extends BaseController
     $table = new \CodeIgniter\View\Table();
     
     $headings = $character->fields;
-    $displayHeadings = array_slice($headings, 1, 2); 
-    $table->setHeading(array_map('ucfirst', $displayHeadings));
+    $table->setHeading($headings[1],$headings[3],"details");
     
     foreach ($records as $record) 
     {
         //$table->addRow($record->name,$record->description);
         $nameLink = anchor("TomAndJerry/showme/$record->id",$record->name);
-        $table->addRow($nameLink,$record->description);
+        $table->addRow($record->name,"<img src=\"/image/".$record->image."\"/>",$nameLink);
     }
     
     $template = [
