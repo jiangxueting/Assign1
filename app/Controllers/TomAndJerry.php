@@ -12,9 +12,38 @@ class TomAndJerry extends BaseController
         // get a template parser
     $parser = \Config\Services::parser();
         // tell it about the substitions
-    return $parser->setData(['records' => $records])
+    $table = new \CodeIgniter\View\Table();
+    
+    $headings = $character->fields;
+    $displayHeadings = array_slice($headings, 1, 2); 
+    $table->setHeading(array_map('ucfirst', $displayHeadings));
+    
+    foreach ($records as $record) 
+    {
+        //$table->addRow($record->name,$record->description);
+        $nameLink = anchor("TomAndJerry/showme/$record->id",$record->name);
+        $table->addRow($nameLink,$record->description);
+    }
+    
+    $template = [
+                'table_open' => '<table cellpadding="5px">',
+                'cell_start' => '<td style="border: 1px solid #dddddd;">',
+                'row_alt_start' => '<tr style="background-color:#dddddd">',
+                ];
+    $table->setTemplate($template);
+    
+   $fields = [
+       'title' => 'TomAndJerry',
+       'heading' => 'TomAndJerry',
+       'footer' => 'Copyright XuetingJiang'];
+    
+    return $parser->setData($fields)->render('templates\top') .
+           $table->generate().
+           $parser->setData($fields)->render('templates\bottom');
+    
+    //return $parser->setData(['records' => $records])
         // and have it render the template with those
-    ->render('characterlist');
+    //->render('characterlist');
     }
     public function showme($id)
     {
@@ -25,8 +54,38 @@ class TomAndJerry extends BaseController
       // get a template parser
       $parser = \Config\Services::parser();
       // tell it about the substitions
-      return $parser->setData($record)
+     
+      $table = new \CodeIgniter\View\Table();
+    
+    $headings = $character->fields;
+    $table->addRow($headings[0],$record['id'])
+          ->addRow($headings[1],$record['name'])
+          ->addRow($headings[2],$record['description'])
+          ->addRow($headings[3],"<img src=\"/image/".$record['image']."\"/>")
+          ->addRow($headings[4],$record['favorite'])
+          ->addRow($headings[5],$record['varireties'])
+          ->addRow($headings[6],$record['country'])
+          ->addRow($headings[7],$record['character'])
+;
+
+    $template = [
+                'table_open' => '<table cellpadding="5px">',
+                'cell_start' => '<td style="border: 1px solid #dddddd;">',
+                'row_alt_start' => '<tr style="background-color:#dddddd">',
+                ];
+    $table->setTemplate($template);
+    
+   $fields = [
+       'title' => 'TomAndJerry Character',
+       'heading' => 'TomAndJerry Character',
+       'footer' => 'Copyright XuetingJiang'
+       ];
+      
+      //return $parser->setData($record)
       // and have it render the template with those
-      ->render('onecharacter');
+     // ->render('oneplace');
+   return $parser->setData($fields)->render('templates\top') .
+           $table->generate().
+           $parser->setData($fields)->render('templates\bottom');
     }
 }
